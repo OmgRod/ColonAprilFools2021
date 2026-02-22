@@ -1,0 +1,43 @@
+{
+	"geode": "5.0.0-beta.4",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
+	},
+	"id": "omgrod.thatdarncoin",
+	"name": "170th Secret Coin",
+	"version": "v1.0.0",
+	"developer": "OmgRod",
+	"description": "A port of Colon's 2021 April Fools mod.",
+	"dependencies": {
+		"geode.node-ids": ">=1.18.0"
+	},
+	"resources": {
+		"files": [
+			"res/gamesheet_edits.txt"
+		],
+		"sprites": [
+			"res/spr/*.png"
+		]
+	},
+	"tags": ["joke", "offline", "content", "interface"],
+	"links": {
+		"source": "https://github.com/OmgRod/ColonAprilFools2021"
+	},
+	"settings": {
+		"toggle-coin": {
+			"type": "keybind",
+			"name": "Toggle Coin",
+			"description": "Toggles the secret coin in the basement.",
+			"default": "OEMPeriod"
+		},
+		"give-master-emblem": {
+			"type": "keybind",
+			"name": "Give Master Emblem",
+			"description": "Shows a success popup.",
+			"default": "Enter"
+		}
+	}
+}

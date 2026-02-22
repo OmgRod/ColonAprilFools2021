@@ -1,0 +1,2 @@
+gamesheet02 - replaces meltdown icon with a yellow demon key
+gamesheet03 - removes the lock on the 'tap 🔒 to unlock' message
