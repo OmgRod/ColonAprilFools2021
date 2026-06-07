@@ -24,11 +24,23 @@
 		"source": "https://github.com/OmgRod/ColonAprilFools2021"
 	},
 	"settings": {
-		"show-credits": {
+		"can-type-clubstep": {
 			"type": "bool",
-			"name": "Show Credits",
-			"description": "Shows annoying black screen on game load.",
-			"default": true
+			"name": "Clubstep Code",
+			"default": false,
+			"description": "When enabled, you may enter the Clubstep code. Auto-enabled by mod after talking to RobTop."
+		},
+		"coin-unlocked": {
+			"type": "bool",
+			"name": "Coin Unlocked",
+			"default": false,
+			"description": "When enabled, the coin shows up in the Basement. Automatically toggles on once you re-open the game after seeing the black text."
+		},
+		"typed-clubstep": {
+			"type": "bool",
+			"name": "Black Screen",
+			"default": false,
+			"description": "When enabled, next time you open the main menu, the screen turns black and text shows up. Auto-enabled by mod."
 		}
 	}
 }

@@ -13,7 +13,7 @@ using namespace geode::prelude;
 
 #define ZORDER 4
 
-bool g_Coin = Mod::get()->getSavedValue<bool>("coin-unlocked");
+bool g_Coin = Mod::get()->getSettingValue<bool>("coin-unlocked");
 
 enum {
     kCoin = 314,
@@ -455,9 +455,9 @@ public:
     void onSubmit(CCObject* sender) {
         std::string input = m_searchInput->getString();
 
-        if (Mod::get()->getSavedValue<bool>("can-type-clubstep")) {
+        if (Mod::get()->getSettingValue<bool>("can-type-clubstep")) {
             if (input == "CLUBSTEP") {
-                Mod::get()->setSavedValue("typed-clubstep", true);
+                Mod::get()->setSettingValue("typed-clubstep", true);
                 Mod::get()->saveData();
                 game::exit(true);
             } else {
@@ -484,7 +484,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 
         auto winSize = ccd->getWinSize();
         
-        if (Mod::get()->getSavedValue<bool>("typed-clubstep") && Mod::get()->getSettingValue<bool>("show-credits")) {
+        if (Mod::get()->getSettingValue<bool>("typed-clubstep")) {
             FMODAudioEngine::sharedEngine()->pauseAllAudio();
 
             auto winSize = ccd->getWinSize();
@@ -528,8 +528,8 @@ class $modify(MyMenuLayer, MenuLayer) {
             }
 
             seq->addObject(CallFuncExt::create([]() {
-                Mod::get()->setSavedValue("typed-clubstep", false);
-                Mod::get()->setSavedValue("coin-unlocked", true);
+                Mod::get()->setSettingValue("typed-clubstep", false);
+                Mod::get()->setSettingValue("coin-unlocked", true);
                 g_Coin = true;
                 Mod::get()->saveData();
                 game::exit(true);

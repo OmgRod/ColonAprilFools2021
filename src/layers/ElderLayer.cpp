@@ -208,7 +208,7 @@ void ElderLayer::addButton(const char* frameName, const char* text, std::functio
 }
 
 void ElderLayer::enterButtons() {
-	Mod::get()->setSavedValue("can-type-clubstep", true);
+	Mod::get()->setSettingValue("can-type-clubstep", true);
 	
 	for (unsigned int i = 0; i < m_buttonMenu->getChildrenCount(); i += 2) {
 		auto node1 = static_cast<CCNode*>(m_buttonMenu->getChildren()->objectAtIndex(i));
