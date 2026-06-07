@@ -12,5 +12,3 @@ protected:
 public:
 	CREATE_FUNC(CreditsLayer);
 };
-
-#endif

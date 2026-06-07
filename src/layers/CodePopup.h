@@ -18,5 +18,3 @@ protected:
 public:
 	static CodePopup* create();
 };
-
-#endif

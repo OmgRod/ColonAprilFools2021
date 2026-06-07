@@ -27,5 +27,3 @@ public:
 	static ElderLayer* create();
 	static void scene();
 };
-
-#endif
