@@ -66,7 +66,7 @@ void CodePopup::onSubmit(CCObject*) {
 
 void CodePopup::onFinish() {
 	m_loading->removeFromParentAndCleanup(true);
-	if (m_textArea->getInputNode()->getString().length() == 15) {
+	if (static_cast<std::string>(m_textArea->getInputNode()->getString()).length() == 15) {
 		this->onClose(nullptr);
 	} else {
 		FLAlertLayer::create("Oops!", "Your Steam gift card isn't <cr>15 characters long</c>. Please try again!", "OK")->show();
