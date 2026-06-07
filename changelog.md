@@ -1,6 +1,7 @@
 # v1.0.4
 
 - Faded in the menu music instead
+- Ensure the label doesn't get deleted
 
 # v1.0.3
 

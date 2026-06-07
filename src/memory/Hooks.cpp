@@ -39,9 +39,9 @@ public:
         if (auto unlockTxt = this->getChildByID("tap-more-hint")) {
             auto newUnlockTxt = CCSprite::create("unlockTxtUpdated.png"_spr);
             newUnlockTxt->setPosition(unlockTxt->getPosition());
-            newUnlockTxt->setID("tap-more-hint");
+            newUnlockTxt->setID("tap-more-hint"_spr);
             
-            unlockTxt->removeFromParentAndCleanup(true);
+            unlockTxt->setVisible(false);
 
             this->addChild(newUnlockTxt);
 
@@ -77,7 +77,8 @@ public:
         auto fields = m_fields.self();
 
         auto old = static_cast<CCMenuItemSpriteExtra*>(sender);
-        old->removeFromParentAndCleanup(true);
+        old->setEnabled(false);
+        old->setVisible(false);
         
         auto spr = CCSprite::createWithSpriteFrameName("GJ_lock_open_001.png");
         spr->setScale(0.6f);
@@ -150,7 +151,8 @@ public:
         auto fields = m_fields.self();
 
         auto old = static_cast<CCMenuItemSpriteExtra*>(sender);
-        old->removeFromParentAndCleanup(true);
+        old->setEnabled(false);
+        old->setVisible(false);
 
         auto spr = CCSprite::createWithSpriteFrameName("GJ_lock_open_001.png");
         spr->setScale(0.6f);
