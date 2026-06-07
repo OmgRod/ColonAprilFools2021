@@ -197,7 +197,7 @@ public:
         auto fields = m_fields.self();
 
         if (auto bars = this->getChildByID("bars")) bars->setVisible(false);
-        if (auto demon = this->getChildByID("eyes")) demon->removeFromParentAndCleanup(true); // this one is very annoying
+        if (auto demon = this->getChildByID("eyes")) demon->setPosition({ INT_MAX, INT_MAX }); // this one is very annoying
         if (auto keys = this->getChildByID("keys-menu")) keys->setVisible(false);
 
         if (Mod::get()->getSettingValue<bool>("coin-unlocked")) {
