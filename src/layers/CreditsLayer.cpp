@@ -7,7 +7,7 @@ bool CreditsLayer::init() {
     this->setKeyboardEnabled(true);
     this->setKeypadEnabled(true);
 
-    FMODAudioEngine::sharedEngine()->playMusic("menuLoop.mp3", true, 0.5f, 2);
+    GameManager::sharedState()->fadeInMenuMusic();
 
     auto winSize = CCDirector::sharedDirector()->getWinSize();
 

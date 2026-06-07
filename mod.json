@@ -8,7 +8,7 @@
 	},
 	"id": "omgrod.thatdarncoin",
 	"name": "170th Secret Coin",
-	"version": "v1.0.3",
+	"version": "v1.0.4",
 	"developer": "OmgRod",
 	"description": "A port of Colon's 2021 April Fools mod.",
 	"dependencies": {

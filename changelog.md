@@ -1,3 +1,7 @@
+# v1.0.4
+
+- Faded in the menu music instead
+
 # v1.0.3
 
 - Removed "all the really shitty weird ass tradmodding stuff"
