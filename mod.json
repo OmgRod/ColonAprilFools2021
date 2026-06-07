@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.0-beta.4",
+	"geode": "5.7.1",
 	"gd": {
 		"win": "2.2081",
 		"android": "2.2081",
@@ -15,9 +15,6 @@
 		"geode.node-ids": ">=1.18.0"
 	},
 	"resources": {
-		"files": [
-			"res/gamesheet_edits.txt"
-		],
 		"sprites": [
 			"res/spr/*.png"
 		]

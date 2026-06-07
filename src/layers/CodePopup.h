@@ -10,6 +10,7 @@ protected:
 	LoadingCircle* m_loading;
 	ButtonSprite* m_button1;
 	ButtonSprite* m_button2;
+	TextInput* m_textArea;
 
 	bool init();
 

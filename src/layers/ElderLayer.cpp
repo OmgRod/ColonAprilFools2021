@@ -46,7 +46,7 @@ bool ElderLayer::init() {
 	auto reqBtn = CCMenuItemSpriteExtra::create(
 		ButtonSprite::create("Req", 220, false, "bigFont.fnt", "GJ_button_04.png", 25.0f, 0.4f),
 		this,
-		nullptr
+		menu_selector(ElderLayer::onReq)
 	);
 	reqBtn->setPosition((winSize.width / 2) - 25.0f, -(winSize.height / 2) + 20.0f);
 	misc->addChild(reqBtn);
@@ -56,7 +56,7 @@ bool ElderLayer::init() {
 		auto discordBtn = CCMenuItemSpriteExtra::create(
 			discordSpr,
 			this,
-			nullptr
+			menu_selector(ElderLayer::onDiscord)
 		);
 
 		discordBtn->setPosition((winSize.width / 2) - 25.0f, (winSize.height / 2) - 25.0f);
@@ -68,11 +68,21 @@ bool ElderLayer::init() {
 	title->setScale(1.2f);
 	this->addChild(title);
 
-	this->addButton("GJ_chatBtn_001.png",				"Moderator Lounge");
-	this->addButton("GJ_deleteBtn_001.png",				"Delete Comments");
-	this->addButton("GJ_reportBtn_001.png",				"Comment Ban");
-	this->addButton("GJ_musicOnBtn_001.png",			"Whitelist Artist");
-	this->addButton("GJ_levelLeaderboardBtn_001.png",	"Unfreeze Leaderboards");
+	this->addButton("GJ_chatBtn_001.png", "Moderator Lounge", [=](CCObject*) {
+		FLAlertLayer::create("Oh no!", "You do not have permission to open the <cp>Moderator Lounge</c>.", "OK")->show();
+	});
+	this->addButton("GJ_deleteBtn_001.png", "Delete Comments", [=](CCObject*) {
+		FLAlertLayer::create("Oh no!", "You do not have permission to <cr>delete comments</c>.", "OK")->show();
+	});
+	this->addButton("GJ_reportBtn_001.png", "Comment Ban", [=](CCObject*) {
+		FLAlertLayer::create("Oh no!", "You do not have permission to use the <cy>Comment Ban</c> tool.", "OK")->show();
+	});
+	this->addButton("GJ_musicOnBtn_001.png", "Whitelist Artist", [=](CCObject*) {
+		FLAlertLayer::create("Oh no!", "You do not have permission to <cg>whitelist artists</c>.", "OK")->show();
+	});
+	this->addButton("GJ_levelLeaderboardBtn_001.png", "Unfreeze Leaderboards", [=](CCObject*) {
+		FLAlertLayer::create("Oh no!", "You do not have permission to <cb>unfreeze leaderboards</c>.", "OK")->show();
+	});
 
 	this->runAction(
 		CCSequence::create(
@@ -95,15 +105,14 @@ void ElderLayer::keyBackClicked() {
 	this->onExit(nullptr);
 }
 
-void ElderLayer::addButton(const char* frameName, const char* text) {
+void ElderLayer::addButton(const char* frameName, const char* text, std::function<void(CCObject*)> func) {
 	auto sprite = CCSprite::createWithSpriteFrameName(frameName);
 	auto winSize = CCDirector::sharedDirector()->getWinSize();
 	auto size = sprite->getTextureRect().size;
 	sprite->setScale(winSize.height / size.height * 0.12f);
-	auto btn = CCMenuItemSpriteExtra::create(
+	auto btn = CCMenuItemExt::createSpriteExtra(
 		sprite,
-		this,
-		nullptr
+		func
 	);
 	btn->setPosition(m_obNext.x - 150.0f, m_obNext.y);
 	btn->setOpacity(0);
@@ -155,3 +164,44 @@ void ElderLayer::scene() {
 	scene->addChild(ElderLayer::create());
 	CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
 }
+
+void ElderLayer::onDiscord(CCObject* sender) {
+	web::openLinkInBrowser("https://discord.gg/geometrydash");
+}
+
+void ElderLayer::onReq(CCObject* sender) {
+    // auto glm = GameLevelManager::sharedState();
+
+    // if (!glm->requestUserAccess()) return;
+
+    // m_uploadPopup = UploadActionPopup::create(this, "Loading...");
+    // m_uploadPopup->show();
+
+	// that popup wouldnt close so nvm
+	FLAlertLayer::create("Oh no!", "You are most likely not a moderator, but I dont know... Maybe there are moderators that use this mod..?", "OK")->show();
+}
+
+// void ElderLayer::uploadActionFailed(int id, int response) {
+//     if (response != 0x2b || !m_uploadPopup)
+//         return;
+
+//     m_uploadPopup->showFailMessage("Failed. Nothing found.");
+// }
+
+// void ElderLayer::uploadActionFinished(int id, int response) {
+//     if (response != 0x2b || !m_uploadPopup) return;
+
+//     auto gm = GameManager::sharedState();
+
+//     int diff = gm->m_sessionAttempts - gm->m_sessionAttempts2;
+
+//     if (diff == 2) {
+//         m_uploadPopup->showSuccessMessage("Success! Elder Moderator access granted.");
+//     }
+//     else if (diff == 1) {
+//         m_uploadPopup->showSuccessMessage("Success! Moderator access granted.");
+//     }
+//     else if (gm->m_canGetLevelSaveData) {
+//         m_uploadPopup->showSuccessMessage("Success! Leaderboard Moderator access granted.");
+//     }
+// }

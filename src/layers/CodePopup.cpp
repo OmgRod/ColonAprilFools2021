@@ -24,17 +24,12 @@ bool CodePopup::init() {
 	prompt->setPosition(m_mainLayer->getContentSize().width / 2, m_mainLayer->getContentSize().height / 2);
 	m_mainLayer->addChild(prompt);
 
-	auto textBG = CCScale9Sprite::create("square02_small.png", { 0.0f, 0.0f, 40.0f, 40.0f });
-	textBG->setContentSize({ 270.0f, 30.0f });
-	textBG->setPosition(m_mainLayer->getContentSize().width / 2, m_mainLayer->getContentSize().height / 2 - 40.0f);
-	textBG->setOpacity(100);
-	m_mainLayer->addChild(textBG);
-
-	auto textArea = CCTextInputNode::create(250.0f, 30.0f, "XXXXX-XXXXX-XXXXX", "bigFont.fnt");
-	textArea->setLabelPlaceholderColor({ 120, 170, 240 });
-	textArea->setMaxLabelScale(0.5f);
-	textArea->setPosition(m_mainLayer->getContentSize().width / 2, m_mainLayer->getContentSize().height / 2 - 40.0f);
-	m_mainLayer->addChild(textArea);
+	m_textArea = TextInput::create(250.f, "XXXXX-XXXXX-XXXXX", "bigFont.fnt");
+	m_textArea->getInputNode()->setLabelPlaceholderColor({ 120, 170, 240 });
+	m_textArea->getInputNode()->setMaxLabelScale(0.5f);
+	m_textArea->setMaxCharCount(15);
+	m_textArea->setPosition(m_mainLayer->getContentSize().width / 2, m_mainLayer->getContentSize().height / 2 - 40.0f);
+	m_mainLayer->addChild(m_textArea);
 
 	m_button1 = ButtonSprite::create("Cancel", 0, false, "goldFont.fnt", "GJ_button_01.png", 0.0f, 1.0f);
 	auto btn1 = CCMenuItemSpriteExtra::create(m_button1, this, menu_selector(CodePopup::onCancel));
@@ -60,7 +55,7 @@ void CodePopup::onSubmit(CCObject*) {
 	m_loading->setKeyboardEnabled(true);
 	
 	this->runAction(CCSequence::create(
-		CCDelayTime::create(1.34f),
+		CCDelayTime::create(4.f/3.f), // 1.33333...
 		CCCallFunc::create(
 			this,
 			callfunc_selector(CodePopup::onFinish)
@@ -71,7 +66,11 @@ void CodePopup::onSubmit(CCObject*) {
 
 void CodePopup::onFinish() {
 	m_loading->removeFromParentAndCleanup(true);
-	this->onClose(nullptr);
+	if (m_textArea->getInputNode()->getString().length() == 15) {
+		this->onClose(nullptr);
+	} else {
+		FLAlertLayer::create("Oops!", "Your Steam gift card isn't <cr>15 characters long</c>. Please try again!", "OK")->show();
+	}
 }
 
 void CodePopup::onCancel(CCObject* sender) {

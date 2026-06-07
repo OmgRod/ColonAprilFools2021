@@ -1,6 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/GJGarageLayer.hpp>
 #include <Geode/modify/SecretLayer3.hpp>
+#include <Geode/modify/SecretLayer2.hpp>
 #include "../layers/CodePopup.h"
 #include "../layers/ElderLayer.h"
 
@@ -115,9 +116,11 @@ public:
         btn->setPosition(m_fields->localPos);
         m_fields->menu->addChild(btn);
         
-        auto popup = CodePopup::create();
-        CCScene::get()->addChild(popup, 999);
-        popup->show();
+        // who tf wrote this?? fml...
+
+        // auto popup = CodePopup::create();
+        // CCScene::get()->addChild(popup, 999);
+        // popup->show();
     }
 
     void onScene(CCObject* sender) {
@@ -189,5 +192,20 @@ public:
         }
 
         return pRet;
+    }
+};
+
+class $modify(SecretLayer2) {
+public:
+    void onSubmit(CCObject* sender) {
+        std::string input = m_searchInput->getString();
+        std::transform(input.begin(), input.end(), input.begin(), ::tolower);
+
+        if (input == "destroy") {
+            m_messageLabel->setString("Gah! I knew this day would come!");
+            m_messageLabel->setColor({ 255, 150, 0 });
+        } else {
+            SecretLayer2::onSubmit(sender);
+        }
     }
 };

@@ -4,18 +4,23 @@
 #include <Geode/Geode.hpp>
 using namespace geode::prelude;
 
-class ElderLayer : public CCLayer {
+class ElderLayer : public CCLayer, public UploadActionDelegate, public UploadPopupDelegate {
 protected:
 	CCPoint m_obNext;
 	CCMenu* m_buttonMenu;
+	UploadActionPopup* m_uploadPopup;
 
 protected:
 	virtual bool init();
 
 	void onExit(CCObject*);
-	void addButton(const char* frameName, const char* text);
+	void addButton(const char* frameName, const char* text, std::function<void(CCObject*)> func);
 	void keyBackClicked();
 	void enterButtons();
+	void onDiscord(CCObject*);
+	void onReq(CCObject*);
+	// void uploadActionFailed(int id, int response);
+	// void uploadActionFinished(int id, int response);
 
 public:
 	static ElderLayer* create();
