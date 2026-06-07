@@ -5,14 +5,13 @@
 #include "../api/DialogAPI.hpp"
 using namespace geode::prelude;
 
-class ElderLayer : public CCLayer, public UploadActionDelegate, public UploadPopupDelegate {
+class ElderLayer : public CCLayer {
 protected:
 	CCPoint m_obNext;
 	CCMenu* m_buttonMenu;
-	UploadActionPopup* m_uploadPopup;
 
 protected:
-	virtual bool init();
+	bool init();
 
 	void onExit(CCObject*);
 	void addButton(const char* frameName, const char* text, std::function<void(CCObject*)> func);

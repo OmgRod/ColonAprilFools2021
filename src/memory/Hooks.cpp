@@ -6,14 +6,13 @@
 #include <Geode/modify/MenuLayer.hpp>
 #include "../layers/CodePopup.h"
 #include "../layers/ElderLayer.h"
+#include "../layers/CreditsLayer.h"
 #include "../api/DialogAPIIncludes.hpp"
 #include "Geode/ui/OverlayManager.hpp"
 
 using namespace geode::prelude;
 
 #define ZORDER 4
-
-bool g_Coin = Mod::get()->getSettingValue<bool>("coin-unlocked");
 
 enum {
     kCoin = 314,
@@ -201,7 +200,7 @@ public:
         if (auto demon = this->getChildByID("eyes")) demon->removeFromParentAndCleanup(true); // this one is very annoying
         if (auto keys = this->getChildByID("keys-menu")) keys->setVisible(false);
 
-        if (g_Coin) {
+        if (Mod::get()->getSettingValue<bool>("coin-unlocked")) {
             auto coinSprite = CCSprite::createWithSpriteFrameName("secretCoin_01_001.png");
             
             auto coinBtn = CCMenuItemSpriteExtra::create(
@@ -433,6 +432,18 @@ public:
         layer->addToMainScene();
         layer->animateIn(DialogAnimationType::FromTop);
     }
+
+    void onBack(CCObject* sender) {
+        if (Mod::get()->getSettingValue<bool>("coin-unlocked")) {
+            auto scene = CCScene::create();
+            auto layer = CreditsLayer::create();
+            scene->addChild(layer);
+            auto transition = CCTransitionFade::create(0.5f, scene);
+            CCDirector::sharedDirector()->replaceScene(transition);
+        } else {
+            SecretLayer3::onBack(sender);
+        }
+    }
 };
 
 class $modify(SecretLayer2) {
@@ -530,7 +541,6 @@ class $modify(MyMenuLayer, MenuLayer) {
             seq->addObject(CallFuncExt::create([]() {
                 Mod::get()->setSettingValue("typed-clubstep", false);
                 Mod::get()->setSettingValue("coin-unlocked", true);
-                g_Coin = true;
                 Mod::get()->saveData();
                 game::exit(true);
             }));
