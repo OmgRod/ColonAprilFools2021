@@ -1,7 +1,5 @@
-#ifndef __CREDITSLAYER_H__
-#define __CREDITSLAYER_H__
-
 #include <Geode/Geode.hpp>
+
 using namespace geode::prelude;
 
 class CreditsLayer : public CCLayer {

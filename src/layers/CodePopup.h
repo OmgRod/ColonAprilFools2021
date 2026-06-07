@@ -1,6 +1,3 @@
-#ifndef __CodePopup_H__
-#define __CodePopup_H__
-
 #include <Geode/Geode.hpp>
 
 using namespace geode::prelude;

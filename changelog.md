@@ -1,3 +1,7 @@
+# v1.0.3
+
+- Removed "all the really shitty weird ass tradmodding stuff"
+
 # v1.0.2
 
 - Sent the demon eyes to the void (because they wouldn't listen - although of course they cant)

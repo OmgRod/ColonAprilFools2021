@@ -1,8 +1,6 @@
-#ifndef __ELDERLAYER_H__
-#define __ELDERLAYER_H__
-
 #include <Geode/Geode.hpp>
 #include "../api/DialogAPI.hpp"
+
 using namespace geode::prelude;
 
 class ElderLayer : public CCLayer {

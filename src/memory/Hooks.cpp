@@ -12,13 +12,6 @@
 
 using namespace geode::prelude;
 
-#define ZORDER 4
-
-enum {
-    kCoin = 314,
-    kScratch
-};
-
 namespace {
     struct UnlockTxtLayout {
         static const CCSize spriteAreaPx;
@@ -221,7 +214,7 @@ public:
 
             auto menu = CCMenu::create();
             menu->setPosition({ winSize.width / 2, winSize.height / 2 });
-            menu->setZOrder(ZORDER);
+            menu->setZOrder(4);
             this->addChild(menu);
 
             coinBtn->setPosition({ 0.f, 0.f });
@@ -234,14 +227,14 @@ public:
                 return pRet;
             }
 
-            scratch->setTag(kScratch);
+            scratch->setTag(315);
             scratch->setPosition({
                 winSize.width / 2.f - 1.f,
                 winSize.height / 2.f + 10.f
             });
             scratch->setScale(0.8f);
 
-            this->addChild(scratch, ZORDER);
+            this->addChild(scratch, 4);
 
             scratch->startAnimating();
 
@@ -268,7 +261,7 @@ public:
                     winSize.height / 2.f
                 });
 
-                this->addChild(bars, ZORDER + 1);
+                this->addChild(bars, 4 + 1);
             }
 
             this->runAction(CCSequence::create(
@@ -294,19 +287,19 @@ public:
 
         auto particles = CCParticleSystemQuad::create("coinPickupEffect.plist", false);
         particles->setPosition(targetLayerPos);
-        particles->setZOrder(ZORDER);
+        particles->setZOrder(4);
         this->addChild(particles);
 
         auto wave1 = CCCircleWave::create(25.0f, 0.f, 1.f, false);
         wave1->m_color = { 255, 200, 0 };
         wave1->setPosition(targetLayerPos);
-        wave1->setZOrder(ZORDER);
+        wave1->setZOrder(4);
         this->addChild(wave1);
 
         auto wave2 = CCCircleWave::create(5.0f, 0.f, 0.5f, true);
         wave2->m_color = { 255, 255, 0 };
         wave2->setPosition(targetLayerPos);
-        wave2->setZOrder(ZORDER);
+        wave2->setZOrder(4);
         this->addChild(wave2);
 
         ccBezierConfig bezier;
