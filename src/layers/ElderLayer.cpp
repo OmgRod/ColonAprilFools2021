@@ -1,19 +1,13 @@
 #include "ElderLayer.h"
+#include "../api/DialogAPI.hpp"
 #include <Geode/Geode.hpp>
 
 using namespace geode::prelude;
 
+bool seenRob = false;
+
 bool ElderLayer::init() {
 	GameManager::sharedState()->fadeInMusic("secretLoop.mp3");
-
-	this->addEventListener(
-        KeybindSettingPressedEventV3(Mod::get(), "give-master-emblem"),
-        [this](Keybind const& keybind, bool down, bool repeat, double timestamp) {
-            if (down && !repeat) {
-                FLAlertLayer::create("Success", "You gave the <cp>Master Emblem</c> to RobTop.", "OK")->show();
-            }
-        }
-    );
 
 	auto director = CCDirector::sharedDirector();
 	auto winSize = director->getWinSize();
@@ -84,16 +78,99 @@ bool ElderLayer::init() {
 		FLAlertLayer::create("Oh no!", "You do not have permission to <cb>unfreeze leaderboards</c>.", "OK")->show();
 	});
 
-	this->runAction(
-		CCSequence::create(
-			CCDelayTime::create(0.5f),
-			CCCallFunc::create(this, callfunc_selector(ElderLayer::enterButtons)),
-			nullptr
-		)
-	);
-
 	this->setKeypadEnabled(true);
 	return true;
+}
+
+void ElderLayer::showDialog() {
+	auto dialog = CCArray::create();
+	dialog->retain();
+
+	std::string firstText = fmt::format(
+		"Welcome, <cl>{}</c>. I've been waiting for so long.",
+		getPlayerName()
+	);
+
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		firstText,
+		CCSprite::create("dialogIcon_001.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"Things have been difficult, ever since <cr>he</c> escaped.",
+		CCSprite::create("dialogIcon_002.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"At this rate, <co>2.2</c> may not be released until <cl>2019</c>!",
+		CCSprite::create("dialogIcon_001.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+
+	auto finalObject = VP_DialogObject::create(
+		"RobTop",
+		"Wait a minute... could that be...",
+		CCSprite::create("dialogIcon_003.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	);
+
+	finalObject->AddCallback([this]() {
+		auto popup = FLAlertLayer::create(
+			"Success",
+			"You gave the <cp>Master Emblem</c> to RobTop.",
+			"OK"
+		);
+
+		popup->show();
+
+		popup->addOnExitCallback([this]() {
+			this->runAction(CCSequence::create(
+				CCDelayTime::create(0.5f),
+				CCCallFunc::create(this, callfunc_selector(ElderLayer::moreRobDialog)),
+				nullptr
+			));
+		});
+	});
+
+	dialog->addObject(finalObject);
+
+	auto layer = VP_DialogLayer::createWithObjects(dialog, 4);
+	// layer->addToMainScene();
+	CCScene* scene = CCDirector::sharedDirector()->getRunningScene();
+	scene->addChild(layer, 999999);
+	layer->animateIn(DialogAnimationType::FromTop);
+	dialog->release();
+
+	seenRob = true;
+}
+
+void ElderLayer::onEnterTransitionDidFinish() {
+	log::info("ElderLayer entered scene");
+
+	if (!seenRob) {
+		log::info("not yet seen rob");
+		this->runAction(CCSequence::create(
+			CCDelayTime::create(0.0f),
+			CCCallFunc::create(this, callfunc_selector(ElderLayer::showDialog)),
+			nullptr
+		));
+	} else {
+		log::info("has seen rob");
+		this->enterButtons();
+	}
 }
 
 void ElderLayer::onExit(CCObject*) {
@@ -131,6 +208,8 @@ void ElderLayer::addButton(const char* frameName, const char* text, std::functio
 }
 
 void ElderLayer::enterButtons() {
+	Mod::get()->setSavedValue("can-type-clubstep", true);
+	
 	for (unsigned int i = 0; i < m_buttonMenu->getChildrenCount(); i += 2) {
 		auto node1 = static_cast<CCNode*>(m_buttonMenu->getChildren()->objectAtIndex(i));
 		auto node2 = static_cast<CCNode*>(m_buttonMenu->getChildren()->objectAtIndex(i + 1));
@@ -205,3 +284,80 @@ void ElderLayer::onReq(CCObject* sender) {
 //         m_uploadPopup->showSuccessMessage("Success! Leaderboard Moderator access granted.");
 //     }
 // }
+
+void ElderLayer::moreRobDialog() {
+	auto dialog = CCArray::create();
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"My <co>Emblem</c>! But... <i050>how</i>?",
+		CCSprite::create("dialogIcon_003.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"Perhaps you are more helpful than I thought.",
+		CCSprite::create("dialogIcon_001.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	std::string text = fmt::format("<cl>{}</c>...", getPlayerName());
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		text,
+		CCSprite::create("dialogIcon_001.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"I cannot stay here much longer.",
+		CCSprite::create("dialogIcon_002.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"You must help me take out the <cr>Demon Guardian</c>.",
+		CCSprite::create("dialogIcon_002.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"I will be sure to send you something helpful in the <co>mail</c>.",
+		CCSprite::create("dialogIcon_001.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	dialog->addObject(VP_DialogObject::create(
+		"RobTop",
+		"Please, tread carefully. <cr>He</c> could be watching.",
+		CCSprite::create("dialogIcon_002.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	));
+	auto finalObject = VP_DialogObject::create(
+		"RobTop",
+		"<cl>RubRub out.</c>",
+		CCSprite::create("dialogIcon_002.png"_spr),
+		1.f,
+		false,
+		ccWHITE
+	);
+	finalObject->AddCallback([this]() {
+		this->enterButtons();
+	});
+	dialog->addObject(finalObject);
+
+	auto layer = VP_DialogLayer::createWithObjects(dialog, 4);
+	layer->addToMainScene();
+	layer->animateIn(DialogAnimationType::FromTop);
+}

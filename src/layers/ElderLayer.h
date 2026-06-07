@@ -2,6 +2,7 @@
 #define __ELDERLAYER_H__
 
 #include <Geode/Geode.hpp>
+#include "../api/DialogAPI.hpp"
 using namespace geode::prelude;
 
 class ElderLayer : public CCLayer, public UploadActionDelegate, public UploadPopupDelegate {
@@ -19,6 +20,9 @@ protected:
 	void enterButtons();
 	void onDiscord(CCObject*);
 	void onReq(CCObject*);
+	void moreRobDialog();
+	void showDialog();
+	void onEnterTransitionDidFinish();
 	// void uploadActionFailed(int id, int response);
 	// void uploadActionFinished(int id, int response);
 

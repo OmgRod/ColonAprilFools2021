@@ -68,8 +68,38 @@ void CodePopup::onFinish() {
 	m_loading->removeFromParentAndCleanup(true);
 	if (static_cast<std::string>(m_textArea->getInputNode()->getString()).length() == 15) {
 		this->onClose(nullptr);
+
+		auto dialog = CCArray::create();
+		dialog->addObject(DialogObject::create(
+			"The Shopkeeper",
+			"It appears that <cl>RubRub</c> has accepted your <co>humble offering</c>.",
+			5,
+			1.f,
+			false,
+			ccWHITE
+		));
+		dialog->addObject(DialogObject::create(
+			"The Shopkeeper",
+			"You may now pass.",
+			5,
+			1.f,
+			false,
+			ccWHITE
+		));
+		dialog->addObject(DialogObject::create(
+			"The Shopkeeper",
+			"<cg>The rest is up to you.</c>",
+			6,
+			1.f,
+			false,
+			ccWHITE
+		));
+
+		auto dialogLayer = DialogLayer::createWithObjects(dialog, 1);
+		dialogLayer->addToMainScene();
+		dialogLayer->animateIn(DialogAnimationType::FromTop);
 	} else {
-		FLAlertLayer::create("Oops!", "Your Steam gift card isn't <cr>15 characters long</c>. Please try again!", "OK")->show();
+		FLAlertLayer::create("Oops!", "Your Steam code isn't <cr>15 characters long</c>. Please try again!", "OK")->show();
 	}
 }
 

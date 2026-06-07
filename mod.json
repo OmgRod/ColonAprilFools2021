@@ -24,17 +24,11 @@
 		"source": "https://github.com/OmgRod/ColonAprilFools2021"
 	},
 	"settings": {
-		"toggle-coin": {
-			"type": "keybind",
-			"name": "Toggle Coin",
-			"description": "Toggles the secret coin in the basement.",
-			"default": "OEMPeriod"
-		},
-		"give-master-emblem": {
-			"type": "keybind",
-			"name": "Give Master Emblem",
-			"description": "Shows a success popup.",
-			"default": "Enter"
+		"show-credits": {
+			"type": "bool",
+			"name": "Show Credits",
+			"description": "Shows annoying black screen on game load.",
+			"default": true
 		}
 	}
 }
