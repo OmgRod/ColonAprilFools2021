@@ -1,3 +1,7 @@
+# v1.1.1
+
+- Finished the mod description
+
 # v1.1.0
 
 - Removed all settings

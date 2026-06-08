@@ -23,7 +23,11 @@ For help with the mod, I recommend you watch the following YouTube videos:
 2. <cl>Open the basement.</c> If you freed the monster <cy>(or have enabled the mod setting to spoof the monster being freed)</c>, you will see Scratch.
 3. Scratch will tell you to <cb>find RobTop</c> and give him his <cp>emblem</c>. Go to the garage (icon kit area) and click the lock.
 4. There, the shopkeeper will speak to you. If you click the lock again, you will get a popup asking to enter a <cg>15 character</c> code (you do not need to buy a real Steam gift card for this section).
-5. Once you entered the code, click the lock again to open <cp>RobTop's lair</c>
+5. Once you entered the code, click the lock again to open <cp>RobTop's lair</c>. Go through all the dialog with RobTop.
+6. Go to the <cj>Vault</c> and enter the code `CLUBSTEP` (in all caps).
+7. Re-open the game. You will see some mysterious text. Then, the game will close.
+8. Re-open the game and go to the Basement. There, you will see a coin. Click it (if you want)!
+9. Exit the menu and read the very legitimate and totally up-to-date credits for the game (because of course Viprin is still part of the community).
 
 ## Credits
 
