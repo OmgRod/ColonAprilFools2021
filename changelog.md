@@ -10,7 +10,6 @@
 
 - Faded in the menu music instead
 - Ensure the label doesn't get deleted
-- Other miscellaneous fixes
 
 # v1.0.3
 
