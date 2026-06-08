@@ -367,7 +367,7 @@ public:
         
         FMODAudioEngine::sharedEngine()->playEffect("highscoreGet02.ogg");
 
-        Mod::get()->setSavedValue("scratch-dialog", true);
+        Mod::get()->setSavedValue("coin-collected", true);
     }
 
     void onScratch() {
