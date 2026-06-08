@@ -208,8 +208,6 @@ void ElderLayer::addButton(const char* frameName, const char* text, std::functio
 }
 
 void ElderLayer::enterButtons() {
-	Mod::get()->setSettingValue("can-type-clubstep", true);
-	
 	for (unsigned int i = 0; i < m_buttonMenu->getChildrenCount(); i += 2) {
 		auto node1 = static_cast<CCNode*>(m_buttonMenu->getChildren()->objectAtIndex(i));
 		auto node2 = static_cast<CCNode*>(m_buttonMenu->getChildren()->objectAtIndex(i + 1));
@@ -286,6 +284,8 @@ void ElderLayer::onReq(CCObject* sender) {
 // }
 
 void ElderLayer::moreRobDialog() {
+	Mod::get()->setSavedValue<bool>("emblem-given", true);
+
 	auto dialog = CCArray::create();
 	dialog->addObject(VP_DialogObject::create(
 		"RobTop",

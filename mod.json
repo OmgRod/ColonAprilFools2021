@@ -24,23 +24,16 @@
 		"source": "https://github.com/OmgRod/ColonAprilFools2021"
 	},
 	"settings": {
-		"can-type-clubstep": {
-			"type": "bool",
-			"name": "Clubstep Code",
-			"default": false,
-			"description": "When enabled, you may enter the Clubstep code. Auto-enabled by mod after talking to RobTop."
+		"reset-save": {
+			"type": "custom:clear-button",
+			"name": "Reset All Save Data",
+			"description": "Allows you to reset all your save data in ."
 		},
-		"coin-unlocked": {
+		"ignore-free-monster": {
 			"type": "bool",
-			"name": "Coin Unlocked",
+			"name": "Free Monster",
 			"default": false,
-			"description": "When enabled, the coin shows up in the Basement. Automatically toggles on once you re-open the game after seeing the black text."
-		},
-		"typed-clubstep": {
-			"type": "bool",
-			"name": "Black Screen",
-			"default": false,
-			"description": "When enabled, next time you open the main menu, the screen turns black and text shows up. Auto-enabled by mod."
+			"description": "When enabled, it will appear as if you have freed the monster - allowing you to use this mod without having freed it."
 		}
 	}
 }

@@ -17,4 +17,6 @@ protected:
 
 public:
 	static CodePopup* create();
+
+	std::function<void()> m_successCallback;
 };

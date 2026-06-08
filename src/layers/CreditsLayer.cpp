@@ -4,8 +4,13 @@
 bool CreditsLayer::init() {
     if (!CCLayer::init()) return false;
 
+#ifdef GEODE_IS_DESKTOP
     this->setKeyboardEnabled(true);
     this->setKeypadEnabled(true);
+#else
+    this->setKeyboardEnabled(false);
+    this->setKeypadEnabled(false);
+#endif
 
     GameManager::sharedState()->fadeInMenuMusic();
 
@@ -15,6 +20,7 @@ bool CreditsLayer::init() {
     bg->setColor({ 40, 125, 255 });
     this->addChild(bg);
 
+#ifndef GEODE_IS_DESKTOP
     addBackButton(
         this,
         [this](cocos2d::CCMenuItem*) {
@@ -22,6 +28,7 @@ bool CreditsLayer::init() {
         },
         BackButtonStyle::Pink
     );
+#endif
 
     m_sprite = CCSprite::create("credits.png"_spr);
     float scale = winSize.width / m_sprite->getContentWidth();

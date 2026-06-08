@@ -1,7 +1,16 @@
+# v1.1.0
+
+- Removed all settings
+- Added a "Reset All Save Data" button in settings
+- Added a setting to allow you to see easter eggs in the basement BEFORE freeing the demon guardian
+- Made all the lore flow correctly
+- Added coin sfx finally
+
 # v1.0.4
 
 - Faded in the menu music instead
 - Ensure the label doesn't get deleted
+- Other miscellaneous fixes
 
 # v1.0.3
 

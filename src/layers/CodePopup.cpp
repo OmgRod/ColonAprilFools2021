@@ -27,7 +27,7 @@ bool CodePopup::init() {
 	m_textArea = TextInput::create(250.f, "XXXXX-XXXXX-XXXXX", "bigFont.fnt");
 	m_textArea->getInputNode()->setLabelPlaceholderColor({ 120, 170, 240 });
 	m_textArea->getInputNode()->setMaxLabelScale(0.5f);
-	m_textArea->setMaxCharCount(15);
+	// m_textArea->setMaxCharCount(15); // android hates this for some reason...
 	m_textArea->setPosition(m_mainLayer->getContentSize().width / 2, m_mainLayer->getContentSize().height / 2 - 40.0f);
 	m_mainLayer->addChild(m_textArea);
 
@@ -66,8 +66,16 @@ void CodePopup::onSubmit(CCObject*) {
 
 void CodePopup::onFinish() {
 	m_loading->removeFromParentAndCleanup(true);
-	if (static_cast<std::string>(m_textArea->getInputNode()->getString()).length() == 15) {
-		this->onClose(nullptr);
+
+    if (static_cast<std::string>(
+            m_textArea->getInputNode()->getString()
+        ).length() == 15) {
+
+        if (m_successCallback) {
+            m_successCallback();
+        }
+
+        this->onClose(nullptr);
 
 		auto dialog = CCArray::create();
 		dialog->addObject(DialogObject::create(
@@ -99,8 +107,12 @@ void CodePopup::onFinish() {
 		dialogLayer->addToMainScene();
 		dialogLayer->animateIn(DialogAnimationType::FromTop);
 	} else {
-		FLAlertLayer::create("Oops!", "Your Steam code isn't <cr>15 characters long</c>. Please try again!", "OK")->show();
-	}
+        FLAlertLayer::create(
+            "Oops!",
+            "Your Steam code isn't <cr>15 characters long</c>. Please try again!",
+            "OK"
+        )->show();
+    }
 }
 
 void CodePopup::onCancel(CCObject* sender) {
