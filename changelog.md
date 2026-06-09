@@ -1,6 +1,10 @@
-# v1.1.1
+# v1.2.0
 
 - Finished the mod description
+- Reworked some backend stuff
+- Ensured dialog doesn't repeat after having played it the first time
+- Made GD crash (unintentionally, but works & fits with what the video says) whenever the code `CLUBSTEP` is used
+- Some small bugfixes
 
 # v1.1.0
 

@@ -4,8 +4,6 @@
 
 using namespace geode::prelude;
 
-bool seenRob = false;
-
 bool ElderLayer::init() {
 	GameManager::sharedState()->fadeInMusic("secretLoop.mp3");
 
@@ -148,22 +146,21 @@ void ElderLayer::showDialog() {
 	dialog->addObject(finalObject);
 
 	auto layer = VP_DialogLayer::createWithObjects(dialog, 4);
-	// layer->addToMainScene();
 	CCScene* scene = CCDirector::sharedDirector()->getRunningScene();
 	scene->addChild(layer, 999999);
 	layer->animateIn(DialogAnimationType::FromTop);
 	dialog->release();
 
-	seenRob = true;
+	Mod::get()->setSavedValue("seen-rob", true);
 }
 
 void ElderLayer::onEnterTransitionDidFinish() {
 	log::info("ElderLayer entered scene");
 
-	if (!seenRob) {
+	if (!Mod::get()->getSavedValue<bool>("seen-rob")) {
 		log::info("not yet seen rob");
 		this->runAction(CCSequence::create(
-			CCDelayTime::create(0.0f),
+			CCDelayTime::create(0.5f),
 			CCCallFunc::create(this, callfunc_selector(ElderLayer::showDialog)),
 			nullptr
 		));
@@ -247,44 +244,14 @@ void ElderLayer::onDiscord(CCObject* sender) {
 }
 
 void ElderLayer::onReq(CCObject* sender) {
-    // auto glm = GameLevelManager::sharedState();
-
-    // if (!glm->requestUserAccess()) return;
-
-    // m_uploadPopup = UploadActionPopup::create(this, "Loading...");
-    // m_uploadPopup->show();
-
-	// that popup wouldnt close so nvm
+	// might make this really legit in a future update if i can figure it out
 	FLAlertLayer::create("Oh no!", "You are most likely not a moderator, but I dont know... Maybe there are moderators that use this mod..?", "OK")->show();
 }
 
-// void ElderLayer::uploadActionFailed(int id, int response) {
-//     if (response != 0x2b || !m_uploadPopup)
-//         return;
-
-//     m_uploadPopup->showFailMessage("Failed. Nothing found.");
-// }
-
-// void ElderLayer::uploadActionFinished(int id, int response) {
-//     if (response != 0x2b || !m_uploadPopup) return;
-
-//     auto gm = GameManager::sharedState();
-
-//     int diff = gm->m_sessionAttempts - gm->m_sessionAttempts2;
-
-//     if (diff == 2) {
-//         m_uploadPopup->showSuccessMessage("Success! Elder Moderator access granted.");
-//     }
-//     else if (diff == 1) {
-//         m_uploadPopup->showSuccessMessage("Success! Moderator access granted.");
-//     }
-//     else if (gm->m_canGetLevelSaveData) {
-//         m_uploadPopup->showSuccessMessage("Success! Leaderboard Moderator access granted.");
-//     }
-// }
-
 void ElderLayer::moreRobDialog() {
-	Mod::get()->setSavedValue<bool>("emblem-given", true);
+	Mod::get()->setSavedValue("emblem-given", true);
+
+	log::debug("more rob dialog");
 
 	auto dialog = CCArray::create();
 	dialog->addObject(VP_DialogObject::create(

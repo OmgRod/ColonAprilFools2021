@@ -20,8 +20,6 @@ protected:
 	void moreRobDialog();
 	void showDialog();
 	void onEnterTransitionDidFinish();
-	// void uploadActionFailed(int id, int response);
-	// void uploadActionFinished(int id, int response);
 
 public:
 	static ElderLayer* create();
