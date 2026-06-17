@@ -1,6 +1,8 @@
 # v1.2.1
 
 - Fixed the unintentional game crash
+- Updated some mod metadata
+- Gave Colon more credit :)
 
 # v1.2.0
 
