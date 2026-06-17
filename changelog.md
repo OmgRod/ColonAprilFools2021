@@ -1,3 +1,7 @@
+# v1.2.1
+
+- Fixed the unintentional game crash
+
 # v1.2.0
 
 - Finished the mod description
