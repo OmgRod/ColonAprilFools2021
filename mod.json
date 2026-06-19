@@ -27,7 +27,7 @@
 		"reset-save": {
 			"type": "custom:clear-button",
 			"name": "Reset All Save Data",
-			"description": "Allows you to reset all your save data in ."
+			"description": "Allows you to reset all your save data in the mod."
 		},
 		"ignore-free-monster": {
 			"type": "bool",
